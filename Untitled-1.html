@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RITESH MANNA | Photography Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            scroll-behavior: smooth;
+        }
+
+        /* --- HORIZONTAL SCROLL GALLERY --- */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 17, 23, 0.98);
+            overflow-x: auto; 
+            overflow-y: hidden;
+            white-space: nowrap;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+
+        .modal-content-wrapper {
+            display: inline-flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 10vw;
+            gap: 5vw;
+        }
+
+        .modal-img {
+            height: 75vh;
+            width: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            display: inline-block;
+            scroll-snap-align: center; 
+        }
+
+        .close-modal {
+            position: fixed;
+            top: 25px;
+            right: 30px;
+            font-size: 35px;
+            color: #2dd4bf;
+            cursor: pointer;
+            z-index: 10000;
+            background: rgba(22, 27, 34, 0.8);
+            width: 50px;
+            height: 50px;
+            line-height: 45px;
+            text-align: center;
+            border-radius: 50%;
+            border: 1px solid #30363d;
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #30363d;
+        }
+        .card-hover:hover {
+            border-color: #2dd4bf;
+            transform: translateY(-8px);
+            background-color: #1c2128;
+        }
+
+        /* Custom Scrollbar for Horizontal View */
+        .gallery-modal::-webkit-scrollbar {
+            height: 6px;
+        }
+        .gallery-modal::-webkit-scrollbar-thumb {
+            background: #2dd4bf;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 bg-[#0d1117] border-b border-[#30363d] px-6 py-4 flex justify-between items-center bg-opacity-95">
+        <h1 class="text-xl font-black text-[#2dd4bf] tracking-tighter uppercase">Ritesh Manna</h1>
+        <nav class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest text-gray-400">
+            <a href="#projects" class="hover:text-[#2dd4bf] transition">Galleries</a>
+            <a href="#contact" class="hover:text-[#2dd4bf] transition">Contact</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6">
+
+        <section class="py-20 flex flex-col items-center text-center">
+            <img src="./images/mypic/_F2A3804 (1).jpg" alt="RITESH MANNA Profile" 
+                 class="w-40 h-40 rounded-full object-cover mb-6 border-4 border-[#2dd4bf] shadow-2xl">
+            
+            <h2 class="text-4xl md:text-6xl font-black mb-4 text-white uppercase tracking-tight">RITESH <span class="text-[#2dd4bf]">MANNA</span></h2>
+            <p class="text-sm md:text-base text-gray-500 max-w-lg uppercase tracking-[0.3em] font-medium">
+                Sports • Concerts • Wildlife Photographer
+            </p>
+        </section>
+
+        <section id="projects" class="py-10 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
+            
+            <div class="bg-[#161b22] rounded-3xl p-4 card-hover">
+                <img src="./images/sports/football7.jpg" alt="Sports Cover" class="w-full h-72 object-cover rounded-2xl mb-6">
+                <button onclick="openGallery('sports-modal')" class="w-full bg-[#2dd4bf] text-[#0d1117] py-4 rounded-xl font-black uppercase tracking-widest hover:brightness-110 transition active:scale-95">
+                    View Sports
+                </button>
+            </div>
+
+            <div class="bg-[#161b22] rounded-3xl p-4 card-hover">
+                <img src="./images/contest/_DSC0135.jpg" alt="Concerts Cover" class="w-full h-72 object-cover rounded-2xl mb-6">
+                <button onclick="openGallery('concert-modal')" class="w-full bg-[#2dd4bf] text-[#0d1117] py-4 rounded-xl font-black uppercase tracking-widest hover:brightness-110 transition active:scale-95">
+                    View Concerts
+                </button>
+            </div>
+
+            <div class="bg-[#161b22] rounded-3xl p-4 card-hover">
+                <img src="./images/wildlife/Ritesh wildlife.jpg" alt="Wildlife Cover" class="w-full h-72 object-cover rounded-2xl mb-6">
+                <button onclick="openGallery('wildlife-modal')" class="w-full bg-[#2dd4bf] text-[#0d1117] py-4 rounded-xl font-black uppercase tracking-widest hover:brightness-110 transition active:scale-95">
+                    View Wildlife
+                </button>
+            </div>
+        </section>
+
+        <footer id="contact" class="pb-32 px-6">
+            <div class="max-w-2xl mx-auto bg-[#161b22] border border-[#30363d] rounded-3xl p-8 md:p-12 shadow-2xl text-center">
+                <h3 class="text-[#2dd4bf] uppercase tracking-[0.2em] text-xs font-black mb-8">Contact & Inquiries</h3>
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                    <a href="tel:8944021957" class="group w-full md:w-auto flex items-center justify-center gap-3 bg-[#0d1117] border border-[#30363d] px-8 py-4 rounded-xl hover:border-[#2dd4bf] transition-all duration-300">
+                        <span class="text-gray-400 group-hover:text-[#2dd4bf] transition-colors">📞</span>
+                        <span class="text-white font-mono font-bold tracking-wider">8944021957</span>
+                    </a>
+
+                    <a href="mailto:riteshmanna100@gmail.com" class="group w-full md:w-auto flex items-center justify-center gap-3 bg-[#0d1117] border border-[#30363d] px-8 py-4 rounded-xl hover:border-[#2dd4bf] transition-all duration-300">
+                        <span class="text-gray-400 group-hover:text-[#2dd4bf] transition-colors">✉️</span>
+                        <span class="text-white font-mono font-bold tracking-wider">riteshmanna100@gmail.com</span>
+                    </a>
+                </div>
+
+                <p class="mt-8 text-gray-500 text-xs uppercase tracking-widest leading-loose">
+                    Available for freelance projects <br>
+                </p>
+            </div>
+        </footer>
+
+    </main>
+
+    <div id="sports-modal" class="gallery-modal">
+        <span class="close-modal" onclick="closeGallery('sports-modal')">&times;</span>
+        <div class="modal-content-wrapper">
+            <img src="./images/sports/football2.jpg" class="modal-img">
+            <img src="./images/sports/football9.jpg" class="modal-img">
+            <img src="./images/sports/football5.jpg" class="modal-img">
+            <img src="./images/sports/football12.jpg" class="modal-img">
+            <img src="./images/sports/football14.jpg" class="modal-img">
+            <img src="./images/sports/football6.jpg" class="modal-img">
+            <img src="./images/sports/football15.jpg" class="modal-img">
+            <img src="./images/sports/football13.jpg" class="modal-img">
+            <img src="./images/sports/football18.jpg" class="modal-img">
+            <img src="./images/sports/foo" class="modal-img">
+        </div>
+    </div>
+
+    <div id="concert-modal" class="gallery-modal">
+        <span class="close-modal" onclick="closeGallery('concert-modal')">&times;</span>
+        <div class="modal-content-wrapper">
+            <img src="./images/contest/_DSC0138.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0135.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0138.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0197.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0144.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0208.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0404 (1).jpg" class="modal-img">
+            <img src="./images/contest/_DSC0383.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0478.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0386.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0768.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0481.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0428.jpg" class="modal-img">
+            <img src="./images/contest/_DSC0460.jpg" class="modal-img">
+        </div>
+    </div>
+
+    <div id="wildlife-modal" class="gallery-modal">
+        <span class="close-modal" onclick="closeGallery('wildlife-modal')">&times;</span>
+        <div class="modal-content-wrapper">
+            <img src="./images/wildlife/Ritesh wildlife.jpg" class="modal-img">
+            <img src="./images/wildlife/_DSC0159.jpg" class="modal-img">
+            <img src="./images/wildlife/_DSC0182.jpg" class="modal-img">
+            <img src="./images/wildlife/Picsart_23-02-13_21-33-31-415.jpg" class="modal-img">
+            <img src="./images/wildlife/Picsart_23-02-13_21-39-56-495.jpg" class="modal-img">
+            <img src="./images/wildlife/Picsart_23-02-13_21-41-58-472.jpg" class="modal-img">
+            <img src="./images/wildlife/Picsart_23-02-13_21-54-43-929.jpg" class="modal-img">
+            <img src="./images/wildlife/Picsart_23-02-13_22-03-22-885.jpg" class="modal-img">
+            <img src="./images/wildlife/Picsart_25-02-05_12-21-58-182.jpg" class="modal-img">
+            <img src="./images/wildlife/Picsart_25-02-05_12-25-18-153.jpg" class="modal-img">
+        </div>
+    </div>
+
+    <script>
+        function openGallery(id) {
+            document.getElementById(id).style.display = "block";
+            document.body.style.overflow = "hidden"; 
+        }
+
+        function closeGallery(id) {
+            document.getElementById(id).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        const modals = document.querySelectorAll('.gallery-modal');
+        modals.forEach(modal => {
+            modal.addEventListener('wheel', (evt) => {
+                if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
+                    evt.preventDefault();
+                    modal.scrollLeft += evt.deltaY;
+                }
+            }, { passive: false });
+        });
+
+        window.onclick = function(event) {
+            if (event.target.className === "gallery-modal") {
+                closeGallery(event.target.id);
+            }
+        }
+    </script>
+</body>
+</html>
